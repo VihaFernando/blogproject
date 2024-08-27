@@ -11,8 +11,8 @@ Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->nam
 
 // User dashboard
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    return view('home.homepage');
+})->middleware(['auth', 'verified'])->name('home.homepage');
 
 // Admin home
 Route::get('/admin/home', function () {
