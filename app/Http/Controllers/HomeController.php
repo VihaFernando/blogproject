@@ -23,4 +23,14 @@ class HomeController extends Controller
 
         return redirect()->route('login');
     }
+
+    public function post()
+    {
+        return view("post");
+    }
+
+    public function homepage()
+    {
+        return view('home.homepage');
+    }
 }

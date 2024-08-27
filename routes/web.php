@@ -4,9 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class,'homepage']);
 
 // Redirect users to the appropriate dashboard based on their type
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('home');
@@ -20,6 +18,8 @@ Route::get('/dashboard', function () {
 Route::get('/admin/home', function () {
     return view('admin.adminhome');
 })->middleware(['auth', 'verified'])->name('admin.home');
+
+Route::get('post',[HomeController::class,'post']);
 
 // Profile routes
 Route::middleware('auth')->group(function () {
