@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -14,17 +15,29 @@ class AdminController extends Controller
 
     public function add_post(Request $request)
     {
+
+        $user=Auth()->user();
+        $userid = $user->id;
+        $name = $user->name;
+        $usertype = $user->usertype;
+
         $post=new Post;
 
         $post->title = $request->title;
         $post->description = $request->description;
+        $post->post_staus = 'active';
+        $post->user_id = $userid; 
+        $post->name = $name;
+        $post->user_type = $usertype;
 
         $image=$request->image;
-        $imagename=time().'.'.$image->getClientOriginalExtension();
-        $request->image->move('postimage',$imagename);
-        
-        $post->image = $imagename;
+        if($image){
+            $imagename=time().'.'.$image->getClientOriginalExtension();
+            $request->image->move('postimage',$imagename);
+            $post->image = $imagename;
+        }
+
         $post->save();
-        return redirect()->back();
+        return redirect()->back()->with('message','Post Added Successfully');
     }
 }
