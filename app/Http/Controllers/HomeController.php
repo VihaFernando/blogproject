@@ -11,10 +11,11 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::check()) {
+            $post=Post::all();
             $usertype = Auth::user()->usertype;
 
             if ($usertype == 'user') {
-                return redirect()->route('home.homepage');
+                return view('home.homepage', compact('post'));
             } elseif ($usertype == 'admin') {
                 return redirect()->route('admin.home');
             } else {
