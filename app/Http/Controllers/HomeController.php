@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
@@ -31,6 +32,8 @@ class HomeController extends Controller
 
     public function homepage()
     {
-        return view('home.homepage');
+
+        $post=Post::all();
+        return view('home.homepage',compact('post'));
     }
 }
